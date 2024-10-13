@@ -46,6 +46,8 @@
 # *.iml
 # *.ipr
 
+settings.py
+
 # CMake
 cmake-build-*/
 
