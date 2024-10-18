@@ -5,15 +5,13 @@ from io import read_name_basics_df
 
 spark_session = (SparkSession.builder
                              .master("local")
-                             .appName("task app")
+                             .appName("NameBasicsProcessing")
                              .config(conf=SparkConf())
                              .getOrCreate())
 
 
-df = read_name_basics_df()
-
-
 if __name__ == "__main__":
-    df = basic_test_df(spark_session)
+    df = read_name_basics_df(spark_session)
 
     df.show()
+    df.printSchema()
