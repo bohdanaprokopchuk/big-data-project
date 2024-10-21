@@ -1,7 +1,6 @@
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
-from basic_dfs.basic_df_prokopchuk import basic_test_df
-from io import read_name_basics_df
+from io_data import read_name_basics_df
 
 spark_session = (SparkSession.builder
                              .master("local")
@@ -12,6 +11,3 @@ spark_session = (SparkSession.builder
 
 if __name__ == "__main__":
     df = read_name_basics_df(spark_session)
-
-    df.show()
-    df.printSchema()

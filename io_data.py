@@ -14,4 +14,15 @@ name_basics_schema = StructType([
 
 
 def read_name_basics_df(spark_session, path=FILE_PATH):
-    return spark_session.read.csv(path, sep='\t', header=True, schema=name_basics_schema)
+    return spark_session.read.csv(
+        path,
+        sep='\t',
+        header=True,
+        schema=name_basics_schema,
+        inferSchema=False,
+        mode='DROPMALFORMED',
+        nullValue='\\N',
+        quote='"',
+        escape="\\",
+        dateFormat='yyyy'
+    )
