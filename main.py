@@ -1,6 +1,6 @@
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
-from io_data import read_name_basics_df
+from io import read_name_basics_df
 
 spark_session = (SparkSession.builder
                              .master("local")
