@@ -1,0 +1,24 @@
+# Ignore Python virtual environments
+venv/
+__pycache__/
+*.pyc
+
+# Ignore local data files if they are large or temporary
+*.tsv.gz  # Ignoring any large data files
+
+# Ignore Docker-related files
+.dockerignore
+Dockerfile
+
+# Ignore system files
+*.log
+*.tmp
+*.swp
+*.DS_Store
+
+# Ignore any .git files or unnecessary versioning information
+.git/
+.gitignore
+
+data/
+results/
