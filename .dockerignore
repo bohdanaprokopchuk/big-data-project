@@ -21,4 +21,3 @@ Dockerfile
 .gitignore
 
 data/
-results/
