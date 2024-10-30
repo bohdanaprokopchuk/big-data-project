@@ -1,4 +1,4 @@
-import pyspark.sql.functions as F
+import pyspark.sql.functions as f
 from pyspark.sql.types import IntegerType, StringType
 
 
@@ -22,7 +22,7 @@ def transform_title_crew(df):
     df = df.replace('\\N', None)
 
     # Ensure data types are strings, as they hold comma-separated lists of IDs
-    df = df.withColumn("directors", F.col("directors").cast(StringType())) \
-        .withColumn("writers", F.col("writers").cast(StringType()))
+    df = df.withColumn("directors", f.col("directors").cast(StringType())) \
+        .withColumn("writers", f.col("writers").cast(StringType()))
 
     return df

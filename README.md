@@ -6,13 +6,13 @@
 
 ## Research Questions (IMDB dataset)
 
-1. What is the most popular movie genre based on the number of movies produced?
-2. Which movie has the highest rating of all time?
-3. Which 10 actors have appeared in the most films?
-4. Is there a relationship between a movie's length (duration) and its rating?
-5. How many movies were released each year?
-6. Which director has made the most films?
-7. Which movies have the highest budgets, and what are their ratings?
+1. What are the titles of all movies available in the English language?
+2. What are the titles of all movies classified as “Animation”?  
+3. Which movies in the dataset do not have an assigned director?
+4. What are the titles of all short films present in the dataset?
+5. Who are the individuals in the dataset that have listed multiple professions?
+6. Which movies are listed without a specified release year?
+7. What are the titles of movies that belong to multiple genres?
 8. Which movies have the lowest ratings, and which actors starred in them?
 9. Which countries produce the most films?
 10. How have average movie ratings changed over the years?
