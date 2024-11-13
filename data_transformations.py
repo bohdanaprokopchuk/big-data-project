@@ -1,6 +1,5 @@
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col
-from pyspark.sql import functions as f
 
 def filter_movies_by_language(title_akas_df: DataFrame, language: str) -> DataFrame:
     """
@@ -8,6 +7,7 @@ def filter_movies_by_language(title_akas_df: DataFrame, language: str) -> DataFr
 
     :param title_akas_df: DataFrame containing movie information with language column.
     :param language: Language code to filter movies by (e.g., "en" for English).
+
     :return: DataFrame containing movies released in the specified language.
     """
     return title_akas_df.filter(col("language") == language)
@@ -18,6 +18,7 @@ def filter_animation_movies(title_basics_df: DataFrame) -> DataFrame:
     Filters movies classified under the "Animation" genre.
 
     :param title_basics_df: DataFrame containing movie information with genres.
+
     :return: DataFrame containing only movies in the "Animation" genre.
     """
     return title_basics_df.filter(col("genres").contains("Animation"))
@@ -28,6 +29,7 @@ def filter_movies_no_director(title_crew_df: DataFrame) -> DataFrame:
     Filters movies without an assigned director.
 
     :param title_crew_df: DataFrame containing movie crew information with directors column.
+
     :return: DataFrame containing movies with no assigned director.
     """
     return title_crew_df.filter(col("directors").isNull())
@@ -40,8 +42,7 @@ def filter_short_films(title_basics_df: DataFrame) -> DataFrame:
     :param title_basics_df: DataFrame containing movie information with title_type.
     :return: DataFrame containing movies marked as short films.
     """
-    return title_basics_df.filter(col("title_type") == "short")
-
+    return title_basics_df.filter((col("title_type") == "short") & (col("start_year") == 2005))
 
 def filter_individuals_multiple_professions(name_basics_df: DataFrame) -> DataFrame:
     """

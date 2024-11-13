@@ -14,7 +14,7 @@ def transform_title_crew(df):
     - Transformed PySpark DataFrame
     """
     # Rename columns to snake_case
-    df = df.withColumnRenamed("tconst", "tconst") \
+    df = df.withColumnRenamed("tconst", "t_const") \
         .withColumnRenamed("directors", "directors") \
         .withColumnRenamed("writers", "writers")
 

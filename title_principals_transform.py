@@ -1,7 +1,6 @@
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import col, when, udf
-from pyspark.sql.types import ArrayType, StringType
-import json
+import pyspark.sql.functions as f
+from pyspark.sql.types import StringType
 
 
 def transform_title_principals(df: DataFrame) -> DataFrame:
@@ -19,21 +18,13 @@ def transform_title_principals(df: DataFrame) -> DataFrame:
     """
 
     # Rename columns to snake_case
-    df = df.withColumnRenamed("tconst", "title_id") \
-        .withColumnRenamed("nconst", "person_id")
+    df = df.withColumnRenamed("tconst", "t_const") \
+        .withColumnRenamed("nconst", "n_const")
 
-    # Replace with None in all applicable columns
-    df = df.select([when(col(c) == "\\N", None).otherwise(col(c)).alias(c) for c in df.columns])
+    # Replace "\N" to None in all columns
+    df = df.replace('\\N', None)
 
-    # Convert 'characters' column from string to array
-    def parse_characters(characters):
-        # noinspection PyBroadException
-        try:
-            return json.loads(characters)
-        except:
-            return None
-
-    parse_characters_udf = udf(parse_characters, ArrayType(StringType()))
-    df = df.withColumn("characters", parse_characters_udf(col("characters")))
+    # Ensure data types are strings, as they hold comma-separated lists of 'characters'
+    df = df.withColumn("characters", f.col("characters").cast(StringType()))
 
     return df

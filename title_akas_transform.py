@@ -23,7 +23,7 @@ def transform_title_akas(df: DataFrame) -> DataFrame:
     # Convert 'is_original_title' to boolean (1 = True, 0 = False)
     df = df.withColumn("is_original_title", col("is_original_title").cast(BooleanType()))
 
-    # Replace '\N' with None in all string columns
-    df = df.select([when(col(c) == "\\N", None).otherwise(col(c)).alias(c) for c in df.columns])
+    # Replace '\N' with None in all columns
+    df = df.replace('\\N', None)
 
     return df

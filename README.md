@@ -6,23 +6,24 @@
 
 ## Research Questions (IMDB dataset)
 
-1. What are the titles of all movies available in the English language?
-2. What are the titles of all movies classified as “Animation”?  
-3. Which movies in the dataset do not have an assigned director?
-4. What are the titles of all short films present in the dataset?
-5. Who are the individuals in the dataset that have listed multiple professions?
-6. Which movies are listed without a specified release year?
-7. What are the titles of movies that belong to multiple genres?
-8. How many movies have been released in a specific country?
-9. What are the lowest-rated movies, and which actors starred in them?
-10. Which countries produce the most films?
-11. Which movies have the most reviews?
-12. What is the average movie rating by year?
-13. Which movies have the most reviews?
-14. What percentage of movies fall under the "Drama" genre?
-15. Which actors have the highest average movie ratings?
-16. Which movie has the longest runtime and what is its rating?
-17. Who are the top directors based on average movie ratings?
-18. Which actors have appeared in the most movies?
-19. What is the year-over-year growth in the number of movies produced for each genre
-20. Which movies are family-friendly in genres like "Adventure," "Animation," or "Fantasy"?
+1. Which movies were released in the English language?
+2. Which movies are classified as 'Animation' in the dataset? 
+3. What percentage of movies fall under the "Drama" genre in the dataset?
+4. What are the titles of short films released in 2005?
+5. Who are the individuals in the dataset with multiple professions?
+6. Which movies have the highest number of reviews?
+7. Which countries have produced the most movies, and what are the exact counts for each?
+8. Which TV series have the most episodes?
+9. Which is the top-rated movie for each year in the dataset?
+10. What is the count of movies for each genre in the dataset?
+--------------------------------------------------------------
+11. Which films do not have an assigned director?
+12. Which directors have the highest average movie ratings?
+13. Which actors have appeared in the most films?
+14. Which movies are listed without a specified release year?
+15. What movies are released in the US but not in English?
+16. Which movies are family-friendly in genres like "Adventure," "Animation," or "Fantasy"?
+17. What is the average rating of actors for their films?
+18. Which films belong to several genres?
+19. Which movie has the longest running time and what is its rating?
+20. Which genres have the highest growth by year?

@@ -1,5 +1,5 @@
 import pyspark.sql.functions as f
-from pyspark.sql.types import IntegerType, StringType
+from pyspark.sql.types import IntegerType, StringType, BooleanType
 
 
 def transform_title_basics(df):
@@ -14,7 +14,7 @@ def transform_title_basics(df):
     - Transformed PySpark DataFrame
     """
     # Rename columns to snake_case
-    df = df.withColumnRenamed("tconst", "tconst") \
+    df = df.withColumnRenamed("tconst", "t_const") \
         .withColumnRenamed("titleType", "title_type") \
         .withColumnRenamed("primaryTitle", "primary_title") \
         .withColumnRenamed("originalTitle", "original_title") \
@@ -28,7 +28,7 @@ def transform_title_basics(df):
     df = df.replace('\\N', None)
 
     # Convert data types
-    df = df.withColumn("is_adult", f.col("is_adult").cast(IntegerType())) \
+    df = df.withColumn("is_adult", f.col("is_adult").cast(BooleanType())) \
         .withColumn("start_year", f.col("start_year").cast(IntegerType())) \
         .withColumn("end_year", f.col("end_year").cast(IntegerType())) \
         .withColumn("runtime_minutes", f.col("runtime_minutes").cast(IntegerType())) \

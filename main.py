@@ -1,9 +1,8 @@
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 
-from data_transformations_2 import get_lowest_rated_movies, \
-    get_most_films_by_country, get_avg_ratings_by_year, get_most_reviewed_movies, get_drama_percentage, \
-    get_actor_avg_rating, get_longest_movie_runtime, top_directors_by_movie_rating, top_actors_by_movie_count, yearly_genre_growth, get_family_friendly_movies
+import data_transformations_2
+import data_final_transformations
 from preprocessing import drop_column, remove_duplicates
 import data_transformations as tr
 
@@ -96,57 +95,61 @@ if __name__ == "__main__":
     us_non_english_movies = tr.filter_us_non_english_movies(transformed_dfs["title_akas"])
     us_non_english_movies.write.csv("data/results/us_non_english_movies.csv", header=True)
 
+
     movies_in_gb_count = tr.count_movies_by_country(transformed_dfs["title_akas"], "GB")
 
 
-    lowest_rated_movies = get_lowest_rated_movies(transformed_dfs["title_ratings"], transformed_dfs["title_principals"])
+    lowest_rated_movies = data_final_transformations.get_lowest_rated_movies(transformed_dfs["title_ratings"], transformed_dfs["title_akas"])
     lowest_rated_movies.write.csv("data/results/lowest_rated_movies.csv", header=True)
 
 
-    most_films_by_country = get_most_films_by_country(transformed_dfs["title_akas"])
+    most_films_by_country = data_transformations_2.get_most_films_by_country(transformed_dfs["title_akas"])
     most_films_by_country.write.csv("data/results/most_films_by_country.csv", header=True)
 
 
-    avg_ratings_by_year = get_avg_ratings_by_year(transformed_dfs["title_basics"], transformed_dfs["title_ratings"])
-    avg_ratings_by_year.write.csv("data/results/avg_ratings_by_year.csv", header=True)
-
-
-    most_reviewed_movies = get_most_reviewed_movies(transformed_dfs["title_ratings"])
+    most_reviewed_movies = data_final_transformations.get_most_reviewed_movies(transformed_dfs["title_ratings"], transformed_dfs["title_akas"])
     most_reviewed_movies.write.csv("data/results/most_reviewed_movies.csv", header=True)
 
 
-    drama_percentage = get_drama_percentage(transformed_dfs["title_basics"])
+    drama_percentage = data_transformations_2.get_drama_percentage(transformed_dfs["title_basics"])
 
 
-    actor_avg_rating = get_actor_avg_rating(transformed_dfs["title_principals"], transformed_dfs["title_ratings"])
+    top_series_by_episode_count = data_final_transformations.get_top_series_by_episode_count(transformed_dfs["title_basics"], transformed_dfs["title_episode"])
+    top_series_by_episode_count.write.csv("data/results/top_series_by_episode_count.csv", header=True)
+
+
+    actor_avg_rating = data_final_transformations.get_actor_avg_rating(transformed_dfs["title_principals"], transformed_dfs["title_ratings"])
     actor_avg_rating.write.csv("data/results/actor_avg_rating.csv", header=True)
 
 
-    longest_movie_runtime = get_longest_movie_runtime(transformed_dfs["title_basics"], transformed_dfs["title_ratings"])
+    longest_movie_runtime = data_final_transformations.get_longest_movie_runtime(transformed_dfs["title_basics"], transformed_dfs["title_ratings"])
     longest_movie_runtime.write.csv("data/results/longest_movie_runtime.csv", header=True)
 
 
-    top_directors_by_movie_rating = top_directors_by_movie_rating(transformed_dfs["title_crew"],
-                                                                  transformed_dfs["title_ratings"])
-    top_directors_by_movie_rating.write.csv("data/results/top_directors_by_movie_rating.csv", header=True)
+    movies_by_genre_per_year = data_transformations_2.count_movies_by_genre_per_year_with_titles_window(transformed_dfs["title_basics"])
+    movies_by_genre_per_year.write.csv("data/results/movies_by_genre_per_year.csv", header=True)
 
 
-    top_actors_by_movie_count = top_actors_by_movie_count(transformed_dfs["title_principals"],
-                                                          transformed_dfs["name_basics"])
-    top_actors_by_movie_count.write.csv("data/results/top_actors_by_movie_count.csv", header=True)
+    directors_by_movie_count = data_final_transformations.top_directors_by_movie_count(transformed_dfs["title_crew"], transformed_dfs["title_basics"])
+    directors_by_movie_count.write("data/results/directors_by_movie_ratings.csv", header=True)
 
 
-    yearly_genre_growth = yearly_genre_growth(transformed_dfs["title_basics"])
-    yearly_genre_growth.write.csv("data/results/yearly_genre_growth.csv", header=True)
+    movies_per_year = data_final_transformations.top_movies_per_year(transformed_dfs["title_basics"], transformed_dfs["title_ratings"])
+    movies_per_year.write("data/results/movies_per_year.csv", header=True)
 
 
-    family_friendly_movies = get_family_friendly_movies(transformed_dfs["title_basics"])
+    movies_by_genre = data_transformations_2.count_movies_by_genre(transformed_dfs["title_basics"])
+    movies_by_genre.write("data/results/movies_by_genre.csv", header=True)
+
+
+    family_friendly_movies = data_transformations_2.get_family_friendly_movies(transformed_dfs["title_basics"])
     family_friendly_movies.write.csv("data/results/family_friendly_movies.csv", header=True)
 
 
     for df_name, df in transformed_dfs.items():
         print(f"--- Analysis for {df_name} ---")
         full_analysis(df, df_name)
+
 
     write_name_basics_df_to_csv(transformed_name_basics_df, path="data/results/name_basics_csv", mode="overwrite", num_partitions=2)
     write_title_akas_df_to_csv(transformed_title_akas_df, path="data/results/title_akas_csv", mode="overwrite", num_partitions=2)

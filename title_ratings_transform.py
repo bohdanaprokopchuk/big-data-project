@@ -14,7 +14,8 @@ def transform_title_ratings(df: DataFrame) -> DataFrame:
     DataFrame: Transformed DataFrame with consistent schema.
     """
     # Rename columns to snake_case
-    df = df.withColumnRenamed("averageRating", "average_rating") \
+    df = df.withColumnRenamed("tconst", "t_const") \
+           .withColumnRenamed("averageRating", "average_rating") \
            .withColumnRenamed("numVotes", "num_votes")
 
     # Ensure correct data types
@@ -23,5 +24,6 @@ def transform_title_ratings(df: DataFrame) -> DataFrame:
 
     # Handle missing values
     df = df.fillna({"average_rating": 0.0, "num_votes": 0})
+    df = df.replace('\\N', None)
 
     return df

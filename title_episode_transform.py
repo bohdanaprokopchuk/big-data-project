@@ -14,8 +14,8 @@ def transform_title_episode(df):
     - Transformed PySpark DataFrame
     """
     # Rename columns to snake_case
-    df = df.withColumnRenamed("tconst", "tconst") \
-        .withColumnRenamed("parentTconst", "parent_tconst") \
+    df = df.withColumnRenamed("tconst", "t_const") \
+        .withColumnRenamed("parentTconst", "parent_t_const") \
         .withColumnRenamed("seasonNumber", "season_number") \
         .withColumnRenamed("episodeNumber", "episode_number")
 
